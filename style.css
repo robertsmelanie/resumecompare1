@@ -1,0 +1,6 @@
+
+// Get a reference to the container element
+var container = document.getElementById("container");
+
+// Add your tool to the container element
+container.innerHTML = "<!-- Your tool's HTML code goes here -->";

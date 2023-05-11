@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Resume Compare</title>
+  </head>
+  <body>
+    <h1>Resume Comarison tool</h1>
+    <div id="container">
+      <label for="job-description">Job Description:</label>
+      <textarea id="job-description" rows="10" cols="50"></textarea>
+
+      <br />
+
+      <label for="resume">Resume:</label>
+      <textarea id="resume" rows="10" cols="50"></textarea>
+
+      <br />
+
+      <input
+        type="button"
+        value="Compare"
+        onclick="compareJobDescriptionAndResume()"
+      />
+
+      <br />
+
+      <table id="results-table">
+        <thead>
+          <tr>
+            <th>Keyword</th>
+            <th>Frequency in Job Description</th>
+            <th>Frequency in Resume</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Table rows will be added dynamically via JavaScript -->
+        </tbody>
+      </table>
+
+      <script>
+                   function compareJobDescriptionAndResume() {
+                     // Get the text from the job description and resume textareas
+                     const jobDescription =
+                       document.getElementById("job-description").value;
+                     const resume = document.getElementById("resume").value;
+                     function performComparison() {
+             const jobDescription = document.getElementById("job-description").value;
+             const resume = document.getElementById("resume").value;
+
+             // Split the job description and resume text into words
+             const jobWords = jobDescription.toLowerCase().split(/\W+/);
+             const resumeWords = resume.toLowerCase().split(/\W+/);
+
+             // Create an object to store the frequency of each keyword in the job description
+             const jobKeywordCounts = {};
+
+             // Loop through each word in the job description
+             for (let i = 0; i < jobWords.length; i++) {
+               const keyword = jobWords[i];
+
+               // Check if the keyword is in the jobKeywordCounts object
+               if (jobKeywordCounts[keyword]) {
+                 // If the keyword is already in the object, increment its count
+                 jobKeywordCounts[keyword]++;
+               } else {
+                 // If the keyword is not in the object, add it with a count of 1
+                 jobKeywordCounts[keyword] = 1;
+               }
+             }
+
+             // Create an object to store the frequency of each keyword in the resume
+             const resumeKeywordCounts = {};
+
+             // Loop through each word in the resume
+             for (let i = 0; i < resumeWords.length; i++) {
+               const keyword = resumeWords[i];
+
+               // Check if the keyword is in the resumeKeywordCounts object
+               if (resumeKeywordCounts[keyword]) {
+                 // If the keyword is already in the object, increment its count
+                 resumeKeywordCounts[keyword]++;
+               } else {
+                 // If the keyword is not in the object, add it with a count of 1
+                 resumeKeywordCounts[keyword] = 1;
+               }
+             }
+
+             // Create an array to store the comparison results
+             const comparisonResults = [];
+
+             // Loop through each keyword in the jobKeywordCounts object
+             for (const keyword in jobKeywordCounts) {
+               // Check if the keyword is also in the resumeKeywordCounts object
+               if (resumeKeywordCounts[keyword]) {
+                 // If the keyword is in both objects, add a comparison result to the array
+                 const result = {
+                   keyword: keyword,
+                   jobDescriptionFrequency: jobKeywordCounts[keyword],
+                   resumeFrequency: resumeKeywordCounts[keyword]
+                 };
+                 comparisonResults.push(result);
+               }
+             }
+
+             // Return the comparison results
+             return comparisonResults;
+           }
+
+
+               //       // Perform the comparison and get the results
+               //       const comparisonResults = performComparison(jobDescription, resume);
+
+               //       // Add the results to the table
+               //       const resultsTableBody = document.querySelector(
+               //         "#results-table tbody"
+               //       );
+
+               //       // Clear any existing rows from the table
+               //       resultsTableBody.innerHTML = "";
+
+               //       // Loop through the comparison results and add a row for each keyword
+               //       comparisonResults.forEach((result) => {
+               //         const row = document.createElement("tr");
+
+               //         const keywordCell = document.createElement("td");
+               //         keywordCell.textContent = result.keyword;
+               //         row.appendChild(keywordCell);
+
+               //         const jobDescriptionFrequencyCell = document.createElement("td");
+               //         jobDescriptionFrequencyCell.textContent =
+               //           result.jobDescriptionFrequency;
+               //         row.appendChild(jobDescriptionFrequencyCell);
+
+               //         const resumeFrequencyCell = document.createElement("td");
+               //         resumeFrequencyCell.textContent = result.resumeFrequency;
+               //         row.appendChild(resumeFrequencyCell);
+
+               //         resultsTableBody.appendChild(row);
+               //       });
+               //     }
+
+               //     function performComparison(jobDescription, resume) {
+               //       // Your code to perform the comparison goes here
+               //       // Return an array of objects with the following format:
+               //       // { keyword: 'example', jobDescriptionFrequency: 2, resumeFrequency: 1 }
+               //     }
+               //
+        //
+      </script>
+      // //
+      <script>
+              //     function performComparison() {
+              //       // Get the text from the input boxes
+              //       var jobDescription = document.getElementById(
+              //         "job-description-input"
+              //       ).value;
+              //       var resume = document.getElementById("resume-input").value;
+
+              //       // Split the text into words
+              //       var jobWords = jobDescription.split(/\W+/);
+              //       var resumeWords = resume.split(/\W+/);
+
+              //       // Count the keywords in each text
+              //       var jobKeywordCounts = {};
+              //       var resumeKeywordCounts = {};
+              //       var totalKeywords = 0;
+
+              //       for (var i = 0; i < jobWords.length; i++) {
+              //         var keyword = jobWords[i].toLowerCase();
+              //         if (keywords.indexOf(keyword) >= 0) {
+              //           jobKeywordCounts[keyword] = (jobKeywordCounts[keyword] || 0) + 1;
+              //           totalKeywords++;
+              //         }
+              //       }
+
+              //       for (var i = 0; i < resumeWords.length; i++) {
+              //         var keyword = resumeWords[i].toLowerCase();
+              //         if (keywords.indexOf(keyword) >= 0) {
+              //           resumeKeywordCounts[keyword] =
+              //             (resumeKeywordCounts[keyword] || 0) + 1;
+              //           totalKeywords++;
+              //         }
+              //       }
+
+              //       // Calculate the percentages
+              //       var jobPercentage =
+              //         totalKeywords == 0
+              //           ? 0
+              //           : Math.round(
+              //               (Object.keys(jobKeywordCounts).length / totalKeywords) * 100
+              //             );
+              //       var resumePercentage =
+              //         totalKeywords == 0
+              //           ? 0
+              //           : Math.round(
+              //               (Object.keys(resumeKeywordCounts).length / totalKeywords) *
+              //                 100
+              //             );
+
+              //       // Display the results
+              //       document.getElementById("job-keywords").innerHTML =
+              //         Object.keys(jobKeywordCounts).join(", ");
+              //       document.getElementById("resume-keywords").innerHTML =
+              //         Object.keys(resumeKeywordCounts).join(", ");
+              //       document.getElementById("job-percentage").innerHTML =
+              //         jobPercentage + "%";
+              //       document.getElementById("resume-percentage").innerHTML =
+              //         resumePercentage + "%";
+              //     }
+              //     function performComparison() {
+              //       const jobDescription =
+              //         document.getElementById("jobDescription").value;
+              //       const resume = document.getElementById("resume").value;
+
+              function compareJobDescriptionAndResume() {
+        // Get the text from the job description and resume textareas
+        const jobDescription = document.getElementById("job-description").value;
+        const resume = document.getElementById("resume").value;
+
+        // Perform the comparison and get the results
+        const comparisonResults = performComparison(jobDescription, resume);
+
+        // Add the results to the table
+        const resultsTableBody = document.querySelector("#results-table tbody");
+
+        // Clear any existing rows from the table
+        resultsTableBody.innerHTML = "";
+
+        // Loop through the comparison results and add a row for each keyword
+        comparisonResults.forEach((result) => {
+          const row = document.createElement("tr");
+
+          const keywordCell = document.createElement("td");
+          keywordCell.textContent = result.keyword;
+          row.appendChild(keyword
+
+
+                    // Perform comparison logic here
+                    const comparisonResults = compareJobDescriptionAndResume(
+                      jobDescription,
+                      resume
+                    );
+
+                    // Update the result table
+                    const percentageTable = document.getElementById("percentageTable");
+                    percentageTable.innerHTML = "";
+                    for (const key in comparisonResults.percentageMatch) {
+                      const row = `<tr><td>${key}</td><td>${comparisonResults.percentageMatch[key]}%</td></tr>`;
+                      percentageTable.innerHTML += row;
+                    }
+
+                    // Update the important keywords table
+                    const keywordsTable = document.getElementById("keywordsTable");
+                    keywordsTable.innerHTML = "";
+                    for (const key in comparisonResults.importantKeywords) {
+                      const row = `<tr><td>${key}</td><td>${comparisonResults.importantKeywords[key]}</td></tr>`;
+                      keywordsTable.innerHTML += row;
+                    }
+                  }
+      </script>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

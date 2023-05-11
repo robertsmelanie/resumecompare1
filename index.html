@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Resume Compare</title>
+  </head>
+  <body>
+    <h1>Resume Comarison tool</h1>
+    
+    <div>
+      <label for="job-description">Job Description:</label>
+      <textarea id="job-description" rows="10" cols="50"></textarea>
+    </div>
+    <div>
+      <label for="resume">Resume:</label>
+      <textarea id="resume" rows="10" cols="50"></textarea>
+    </div>
+    <div>
+      <button onclick="compareJobDescriptionAndResume()">Compare</button>
+    </div>
+    <table id="results-table">
+      <thead>
+        <tr>
+          <th>Keyword</th>
+          <th>Job Description Frequency</th>
+          <th>Resume Frequency</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+ 
+
+
+
+      <script>
+      function compareJobDescriptionAndResume() {
+     // Get the text from the job description and resume textareas
+      const jobDescription = document.getElementById("job-description").value;
+      const resume = document.getElementById("resume").value;
+
+      // S plit the job description and resume text into words
+      const jobWords = jobDescription.toLowerCase().split(/\W+/);
+      const resumeWords = resume.toLowerCase().split(/\W+/);
+
+          // Create an object to store the frequency of each keyword in the job description
+          const jobKeywordCounts = {};
+
+          // Loop through each word in the job description
+          for (let i = 0; i < jobWords.length; i++) {
+            const keyword = jobWords[i];
+
+            // Check if the keyword is in the jobKeywordCounts object
+            if (jobKeywordCounts[keyword]) {
+              // If the keyword is already in the object, increment its count
+              jobKeywordCounts[keyword]++;
+            } else {
+              // If the keyword is not in the object, add it with a count of 1
+              jobKeywordCounts[keyword] = 1;
+            }
+          }
+
+          // Create an object to store the frequency of each keyword in the resume
+          const resumeKeywordCounts = {};
+
+          // Loop through each word in the resume
+          for (let i = 0; i < resumeWords.length; i++) {
+            const keyword = resumeWords[i];
+
+            // Check if the keyword is in the resumeKeywordCounts object
+            if (resumeKeywordCounts[keyword]) {
+              // If the keyword is already in the object, increment its count
+              resumeKeywordCounts[keyword]++;
+            } else {
+              // If the keyword is not in the object, add it with a count of 1
+              resumeKeywordCounts[keyword] = 1;
+            }
+          }
+
+          // Create an array to store the comparison results
+          const comparisonResults = [];
+
+          // Loop through each keyword in the jobKeywordCounts object
+          for (const keyword in jobKeywordCounts) {
+            // Check if the keyword is also in the resumeKeywordCounts object
+            if (resumeKeywordCounts[keyword]) {
+              // If the keyword is in both objects, add a comparison result to the array
+              const result = {
+                keyword: keyword,
+                jobDescriptionFrequency: jobKeywordCounts[keyword],
+                resumeFrequency: resumeKeywordCounts[keyword]
+              };
+              comparisonResults.push(result);
+            }
+          }
+
+          // Call updateResultTable() to update the table with the comparison results
+          updateResultTable(comparisonResults);
+        }
+
+        function updateResultTable(comparisonResults) {
+          // Update the result table
+          const resultTable = document.getElementById("results-table");
+          resultTable.innerHTML = "";
+          for (let i = 0; i < comparisonResults.length; i++) {
+            const row = resultTable.insertRow();
+            const keywordCell = row.insertCell();
+            keywordCell.innerHTML = comparisonResults[i].keyword;
+            const jobDescriptionFrequencyCell = row.insertCell();
+            jobDescriptionFrequencyCell.innerHTML = comparisonResults[i].jobDescriptionFrequency;
+            const resumeFrequencyCell = row.insertCell();
+            resumeFrequencyCell.innerHTML = comparisonResults[i].resumeFrequency;
+          }
+        }
+      }
+
+      </script>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
